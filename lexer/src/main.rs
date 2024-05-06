@@ -14,6 +14,7 @@ fn main(){
     // 读取第一个
 
     loop {
+        // 死循环
         let token = l.next_token();
         // 判断是不是next_token()
 
@@ -27,5 +28,10 @@ fn main(){
         }
     }
 
-    println!("{} {} {} {}", input.len(),char::from(l.ch), l.position, l.read_position);
+    // 所以为啥read_position = 17 是因为
+    // 在已经读取到末尾了 然后设置了 read_position = 15 => 又进行一步 l.read_char() read_position = 16 position = 15
+    // 然而在末尾 tok = Token::EOF 之后又将 调用了一次 read_char() 所以导致 position = read_position (16)
+    // read_position += 1 (17)
+    println!("------------------");
+    println!("input 长度{} \nlexer.ch = {}\nlexer.position = {}\nlexer.read+position = {}", input.len(),char::from(l.ch), l.position, l.read_position);
 }
