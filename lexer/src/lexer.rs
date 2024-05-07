@@ -82,7 +82,7 @@ impl Lexer {
         };
 
         // 先定义token 然后匹配 一定是mut 相当于一个暂时的空间变量
-        let tok:token::Token;
+        let tok: token::Token;
         self.skip_whitespace();
         // 简易版本
         match self.ch {

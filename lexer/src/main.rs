@@ -5,7 +5,7 @@ mod lexer;
 use lexer::*;
 
 fn main(){
-    let input = String::from("let a = 1 + 3 ;");
+    let input = String::from("let a = 1 + 3 ; let b = 22 + 23 ; else if else true { } ( )");
     // 输入语句
     let mut l = lexer::Lexer::new(input.chars().collect());
     // 创建一个lexer 这样把input 绑定到lexer分析器
@@ -34,4 +34,38 @@ fn main(){
     // read_position += 1 (17)
     println!("------------------");
     println!("input 长度{} \nlexer.ch = {}\nlexer.position = {}\nlexer.read+position = {}", input.len(),char::from(l.ch), l.position, l.read_position);
+}
+
+
+#[test]
+fn test_read() {
+    let input = String::from("let a = 1 + 3 ; let b = 22 + 23 ; else if else true { } ( )");
+    // 输入语句
+    let mut l = lexer::Lexer::new(input.chars().collect());
+    // 创建一个lexer 这样把input 绑定到lexer分析器
+    assert_eq!(l.ch,'0');
+    assert!(l.position == 0);
+    assert!(l.read_position == 0);
+    l.read_char();
+    assert!(l.read_position == 1);
+    // 读取第一个
+
+    loop {
+        // 死循环
+        let token = l.next_token();
+        // 判断是不是next_token()
+
+    // 如果next_token中里面 最后调用read_char()
+    // input.len() <= read_position ? lexer.ch = '0' : lexer.ch = lexer.input(lexer.read+position)
+
+        if token == token::Token::EOF {
+            assert_eq!(token,token::Token::EOF);
+            break;
+        } else {
+            println!("{:?}", token);
+        }
+    }
+    assert_eq!(l.ch,'0');
+    assert_eq!(l.position, 60);
+    assert_eq!(l.read_position,61);
 }
