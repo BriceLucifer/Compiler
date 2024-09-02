@@ -1,0 +1,3 @@
+/Users/bricelliu/code_file/loxlang/clox/build/CMakeFiles/clox.dir
+/Users/bricelliu/code_file/loxlang/clox/build/CMakeFiles/edit_cache.dir
+/Users/bricelliu/code_file/loxlang/clox/build/CMakeFiles/rebuild_cache.dir
