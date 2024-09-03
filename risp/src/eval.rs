@@ -86,7 +86,7 @@ fn eval_function_definition(list: &Vec<Object>) -> Result<Object, String> {
         Object::List(list) => list.clone(),
         _ => return Err(format!("Invalid lambda")),
     };
-    Ok(Object::lambda(params, body))
+    Ok(Object::Lambda(params, body))
 }
 
 fn eval_function_call(
@@ -101,7 +101,7 @@ fn eval_function_call(
 
     let func = lamdba.unwrap();
     match func {
-        Object::lambda(params, body) => {
+        Object::Lambda(params, body) => {
             let mut new_env = Rc::new(RefCell::new(Env::extend(env.clone())));
             for (i, param) in params.iter().enumerate() {
                 let val = eval_obj(&list[i + 1], env)?;
@@ -151,7 +151,7 @@ fn eval_obj(obj: &Object, env: &mut Rc<RefCell<Env>>) -> Result<Object, String> 
     match obj {
         Object::List(list) => eval_list(list, env),
         Object::Void => Ok(Object::Void),
-        Object::lambda(_params, _body) => Ok(Object::Void),
+        Object::Lambda(_params, _body) => Ok(Object::Void),
         Object::Bool(_) => Ok(obj.clone()),
         Object::Integer(n) => Ok(Object::Integer(*n)),
         Object::Symbol(s) => eval_symbol(s, env),
